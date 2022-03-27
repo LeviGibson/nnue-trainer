@@ -1,0 +1,8 @@
+/__pycache__
+/production
+/train_features
+/train_fens.npy
+/train_labels.npy
+/val_features
+/val_fens.npy
+/val_labels.npy
