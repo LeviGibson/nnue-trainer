@@ -6,3 +6,4 @@
 /val_features
 /val_fens.npy
 /val_labels.npy
+/network.nnue
