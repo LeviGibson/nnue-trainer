@@ -81,38 +81,46 @@ def f_propogate(a):
             print()
     return a
 
-for id, w in enumerate(weights):
-    weights[id] = (w*127).astype(int)
 
-for id, b in enumerate(biases):
-    biases[id] = (b*127).astype(int)
+def quantize():
+    for id, w in enumerate(weights):
+        weights[id] = (w*127).astype(int)
 
-indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
-ip = propogate(indicies)
-print(ip)
+    for id, b in enumerate(biases):
+        biases[id] = (b*127).astype(int)
 
-outfile = open("network.nnue", "wb")
+def propogate():
+    indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
+    ip = propogate(indicies)
+    print(ip)
 
-for i in weights[0].flatten():
-    outfile.write(struct.pack('<b', i))
+def write():
+    outfile = open("network.nnue", "wb")
 
-for i in weights[1].flatten():
-    outfile.write(struct.pack('<b', i))
+    for i in weights[0].flatten():
+        outfile.write(struct.pack('<b', i))
 
-for i in weights[2].flatten():
-    outfile.write(struct.pack('<b', i))
+    for i in weights[1].flatten():
+        outfile.write(struct.pack('<b', i))
 
-for i in weights[3].flatten():
-    outfile.write(struct.pack('<b', i))
+    for i in weights[2].flatten():
+        outfile.write(struct.pack('<b', i))
 
-for i in biases[0]:
-    outfile.write(struct.pack('<h', i))
+    for i in weights[3].flatten():
+        outfile.write(struct.pack('<b', i))
 
-for i in biases[1]:
-    outfile.write(struct.pack('<i', i))
+    for i in biases[0]:
+        outfile.write(struct.pack('<h', i))
 
-for i in biases[2]:
-    outfile.write(struct.pack('<i', i))
+    for i in biases[1]:
+        outfile.write(struct.pack('<i', i))
 
-for i in biases[3]:
-    outfile.write(struct.pack('<i', i))
+    for i in biases[2]:
+        outfile.write(struct.pack('<i', i))
+
+    for i in biases[3]:
+        outfile.write(struct.pack('<i', i))
+
+
+quantize()
+write()
