@@ -98,7 +98,7 @@ def write():
     outfile = open("network.nnue", "wb")
 
     for i in weights[0].flatten():
-        outfile.write(struct.pack('<b', i))
+        outfile.write(struct.pack('<h', i))
 
     for i in weights[1].flatten():
         outfile.write(struct.pack('<b', i))
@@ -124,3 +124,4 @@ def write():
 
 quantize()
 write()
+# indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
