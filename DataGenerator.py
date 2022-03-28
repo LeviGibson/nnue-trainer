@@ -1,11 +1,12 @@
 import numpy as np
-import chess
+from chess import Board
 import halfkp
 import chess.pgn
 import hashlib
 import random
+from math import pow
 
-infile = open("data.pgn", 'r')
+infile = open("Data/chessData.csv", 'r')
 
 def result_to_int(res):
     if res == '1-0': return 1
@@ -19,30 +20,24 @@ def generate(rows, fname):
     labels = []
     fens = []
 
-    gamesProcessed = 0
-    featureCount = 0
+    for lineId in range(rows):
+        line = infile.readline().split(',')
+        if line[1][0:1] == '#-':
+            line[1] = 0
+        elif line[1][0] == '#':
+            line[1] = 1
+        else:
+            line[1] = float(line[1])/100
+            line[1] = 1/(1+pow(2, -line[1]))
 
-    while gamesProcessed < rows:
-        game = chess.pgn.read_game(infile)
-        moves = game.mainline_moves()
-        board = chess.Board()
-        gameResult = result_to_int(game.headers['Result'])
-        featureIndexes = []
-        for i in range(10):
-            featureIndexes.append(random.randint(0, len(list(moves))))
+        board = Board(line[0])
+        feature = np.packbits(halfkp.get_halfkp_indeicies(board))
 
-        for mid, move in enumerate(moves):
-            if mid in featureIndexes:
-                feature = np.packbits(halfkp.get_halfkp_indeicies(board))
-                np.save(fname + "features/{}".format(featureCount), feature)
-                labels.append(gameResult)
-                fens.append(board.fen())
-                featureCount+=1
-
-            board.push(move)
-
-        gamesProcessed+=1
-        print(gamesProcessed)
+        np.save(fname + "features/{}".format(lineId), feature)
+        labels.append(line[1])
+        fens.append(line[0])
+        
+        print(lineId)
 
     np.save(fname + "labels", np.array(labels))
     np.save(fname + "fens", np.array(fens))
