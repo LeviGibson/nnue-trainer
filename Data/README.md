@@ -1,0 +1,1 @@
+This generates a big csv with fens and their corrosponding stockfish evaluation

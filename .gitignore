@@ -7,3 +7,7 @@
 /val_fens.npy
 /val_labels.npy
 /network.nnue
+/data.pgn
+/Data/*.pgn
+/Data/chessData.csv
+/data.pgn

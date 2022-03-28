@@ -50,7 +50,7 @@ def propogate(a):
 
     for w,b in zip(weights[1:],biases[1:]):
         if b.shape == (1,):
-            a = ((np.matmul(w.T,a) + b) / 128) / 128
+            a = ((np.matmul(w.T,a) + b) )
             # a = a.astype(float) / 128
             # print(a)
             # a = (np.matmul(w.T,a) + b) / 128
@@ -89,8 +89,8 @@ def quantize():
     for id, b in enumerate(biases):
         biases[id] = (b*127).astype(int)
 
-def propogate():
-    indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
+def propogate_all():
+    indicies = get_halfkp_indeicies(Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
     ip = propogate(indicies)
     print(ip)
 
@@ -123,5 +123,6 @@ def write():
 
 
 quantize()
+# propogate_all()
 write()
 # indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
