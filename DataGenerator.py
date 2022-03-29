@@ -1,9 +1,6 @@
 import numpy as np
 from chess import Board
 import halfkp
-import chess.pgn
-import hashlib
-import random
 from math import pow
 
 infile = open("Data/chessData.csv", 'r')

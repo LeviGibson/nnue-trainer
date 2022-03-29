@@ -1,10 +1,17 @@
 import chess
 import hashlib
+import random
 
 infile = open("analysed.pgn")
 outfile = open("chessData.csv", 'w')
 
 usedKeys = []
+
+def is_quiet_position(board : chess.Board):
+    if board.is_check(): return 0
+    for move in list(board.legal_moves):
+        if board.is_capture(move): return 0
+    return 1
 
 for lineId, line in enumerate(infile):
     if lineId % 10000 == 0:print(lineId)
@@ -46,6 +53,7 @@ for lineId, line in enumerate(infile):
                 continue
             usedKeys.append(key)
 
-        outfile.write("{},{}\n".format(fen, str(eval)))
+        if is_quiet_position(board) or random.randint(0, 50) == 0:
+            outfile.write("{},{}\n".format(fen, str(eval)))
 
         id+=1
