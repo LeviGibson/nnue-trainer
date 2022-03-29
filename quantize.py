@@ -81,8 +81,8 @@ def f_propogate(a):
             print()
     return a
 
-
 def quantize():
+    weights[0] /= 4
     for id, w in enumerate(weights):
         weights[id] = (w*127).astype(int)
 
