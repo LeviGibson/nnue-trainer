@@ -14,6 +14,7 @@ def result_to_int(res):
     exit(1)
 
 def generate(rows, fname):
+    features = []
     labels = []
     fens = []
 
@@ -30,14 +31,16 @@ def generate(rows, fname):
         board = Board(line[0])
         feature = halfkp.get_halfkp_indeicies(board)
 
-        np.save(fname + "features/{}".format(lineId), feature)
+        # np.save(fname + "features/{}".format(lineId), feature)
+        features.append(feature)
         labels.append(line[1])
         fens.append(line[0])
         
         print(lineId)
 
     np.save(fname + "labels", np.array(labels))
+    np.save(fname + "features", np.array(features))
     np.save(fname + "fens", np.array(fens))
 
-generate(500000, "train_")
+generate(10000, "train_")
 generate(2000, "val_")
