@@ -36,7 +36,8 @@ def generate(rows, fname):
         labels.append(line[1])
         fens.append(line[0])
         
-        print(lineId)
+        if lineId % 1000 == 0:
+            print(lineId)
 
     np.save(fname + "labels", np.array(labels))
     np.save(fname + "features", np.array(features))
