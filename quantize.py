@@ -43,6 +43,11 @@ def sigmoid(x):
 def propogate(a):
     global weights, biases
 
+    setIndicies = a
+    a = np.zeros((12*64*64*2), bool)
+    for i in setIndicies:
+        if i: a[i] = True
+
     a = a.reshape(2, -1)
     a = np.array([np.matmul(weights[0].T,a[0]) + biases[0], np.matmul(weights[0].T,a[1]) + biases[0]]).reshape((512,))
     a[a < 0] = 0
@@ -94,10 +99,12 @@ def quantize():
     biases[-1] *= 2
 
     for id, w in enumerate(weights):
-        weights[id] = (w*128).astype(int)
+        w[w > 1] = 1
+        w[w < -1] = -1
+        weights[id] = (w*127).astype(int)
 
     for id, b in enumerate(biases):
-        biases[id] = (b*128).astype(int)
+        biases[id] = (b*127).astype(int)
 
 def propogate_all():
     indicies = get_halfkp_indeicies(Board("r1b3nr/1pppkppp/p1n5/2b1p2P/8/4PP2/PPPPQK1P/RNB2BNR w - - 0 8"))
