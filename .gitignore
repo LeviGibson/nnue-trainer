@@ -11,3 +11,5 @@
 /Data/*.pgn
 /Data/chessData.csv
 /data.pgn
+train_features.npy
+val_features.npy
