@@ -13,8 +13,8 @@ def is_quiet_position(board : chess.Board):
         if board.is_capture(move): return 0
     return 1
 
+numFeatures = 0
 for lineId, line in enumerate(infile):
-    if lineId % 10000 == 0:print(lineId)
     
     line = line.replace('{', '')
     line = line.replace('}', '')
@@ -53,7 +53,9 @@ for lineId, line in enumerate(infile):
                 continue
             usedKeys.append(key)
 
-        if is_quiet_position(board) or random.randint(0, 50) == 0:
+        if is_quiet_position(board) or random.randint(0, 10) == 0:
             outfile.write("{},{}\n".format(fen, str(eval)))
+            numFeatures+=1
+            if numFeatures % 1000 == 0:print(numFeatures)
 
         id+=1

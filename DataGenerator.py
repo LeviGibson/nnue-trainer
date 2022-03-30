@@ -28,7 +28,7 @@ def generate(rows, fname):
             line[1] = 1/(1+pow(2, -line[1]))
 
         board = Board(line[0])
-        feature = np.packbits(halfkp.get_halfkp_indeicies(board))
+        feature = halfkp.get_halfkp_indeicies(board)
 
         np.save(fname + "features/{}".format(lineId), feature)
         labels.append(line[1])
@@ -39,5 +39,5 @@ def generate(rows, fname):
     np.save(fname + "labels", np.array(labels))
     np.save(fname + "fens", np.array(fens))
 
-generate(40000, "train_")
-generate(1000, "val_")
+generate(500000, "train_")
+generate(2000, "val_")

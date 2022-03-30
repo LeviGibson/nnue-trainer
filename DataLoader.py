@@ -27,7 +27,7 @@ class DataLoader(keras.utils.Sequence):
         for i in range(self.batch_size):
             index = self.index_transformation[i+(idx*self.batch_size)]
             
-            tx = np.unpackbits(np.load(self.name + "_features/{}.npy".format(index))).reshape(2, -1)
+            tx = np.load(self.name + "_features/{}.npy".format(index)).reshape(2, -1)
             x[0].append(tx[0])
             x[1].append(tx[1])
             y[i] = self.labels[index]

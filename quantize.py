@@ -1,3 +1,4 @@
+import enum
 import tensorflow as tf
 from halfkp import get_halfkp_indeicies
 import chess
@@ -26,14 +27,14 @@ def load_params():
 weights, biases = load_params()
 
 def activation(x):
-    x //= 127
+    x //= 128
     x[x < 0] = 0
     x[x > 127] = 127
     return x
 
 def f_activation(x):
     x[x < 0] = 0
-    x[x > 1] = 1
+    x[x > 4] = 4
     return x
 
 def sigmoid(x):
@@ -74,7 +75,8 @@ def f_propogate(a):
         if b.shape == (1,):
             a = np.matmul(w.T,a) + b
             a = a[0]
-            return 1/(1+pow(2.71828, -a))
+            return a * 128
+            return 1/(1+pow(2.718, -a))
         else:
             a = f_activation(np.matmul(w.T,a) + b)
             print(a)
@@ -82,15 +84,23 @@ def f_propogate(a):
     return a
 
 def quantize():
-    weights[0] /= 4
     for id, w in enumerate(weights):
-        weights[id] = (w*127).astype(int)
+        weights[id] = w/2
 
     for id, b in enumerate(biases):
-        biases[id] = (b*127).astype(int)
+        biases[id] = b/2
+
+    weights[-1] *= 2
+    biases[-1] *= 2
+
+    for id, w in enumerate(weights):
+        weights[id] = (w*128).astype(int)
+
+    for id, b in enumerate(biases):
+        biases[id] = (b*128).astype(int)
 
 def propogate_all():
-    indicies = get_halfkp_indeicies(Board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"))
+    indicies = get_halfkp_indeicies(Board("r1b3nr/1pppkppp/p1n5/2b1p2P/8/4PP2/PPPPQK1P/RNB2BNR w - - 0 8"))
     ip = propogate(indicies)
     print(ip)
 
@@ -123,6 +133,6 @@ def write():
 
 
 quantize()
-# propogate_all()
+propogate_all()
 write()
 # indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
