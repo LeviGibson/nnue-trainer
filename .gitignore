@@ -12,3 +12,4 @@
 /Data/chessData.csv
 /data.pgn
 *.npy
+models/*

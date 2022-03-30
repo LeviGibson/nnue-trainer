@@ -33,7 +33,7 @@ def ksqs(pmap):
     return wk, bk
 
 def get_halfkp_indeicies(board : chess.Board):
-    features = np.zeros(64, dtype=np.bool)
+    features = np.zeros(64, dtype=int)
     featureCount = 0
     pmap = board.piece_map()
     wk, bk = ksqs(pmap)
