@@ -16,7 +16,7 @@ def result_to_int(res):
 def generate(rows, fname):
     features = []
     labels = []
-    # fens = []
+    fens = []
 
     for lineId in range(rows):
         line = infile.readline().split(',')
@@ -34,16 +34,18 @@ def generate(rows, fname):
         # np.save(fname + "features/{}".format(lineId), feature)
         features.append(feature)
         labels.append(line[1])
-        # fens.append(line[0])
+        fens.append(line[0])
         
         if lineId % 1000 == 0:
             print(lineId)
 
     np.save(fname + "labels", np.array(labels))
     labels = 0
+    np.save(fname + "fens", np.array(fens))
+    fens = 0
     np.save(fname + "features", np.array(features))
     features = 0
     # np.save(fname + "fens", np.array(fens))
 
 generate(7000000, "train_")
-generate(10000, "val_")
+generate(50000, "val_")
