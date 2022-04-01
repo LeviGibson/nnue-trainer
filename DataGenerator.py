@@ -35,7 +35,7 @@ def generate(rows, fname):
         feature = halfkp.get_halfkp_indeicies(board)
 
         # np.save(fname + "features/{}".format(lineId), feature)
-        features.append(feature)
+        features.append(np.array([feature]))
         labels.append(line[1])
         # fens.append(line[0])
         
