@@ -2,6 +2,7 @@ import numpy as np
 from chess import Board
 import halfkp
 from math import pow
+from npy_append_array import NpyAppendArray
 
 infile = open("Data/chessData.csv", 'r')
 
@@ -14,9 +15,11 @@ def result_to_int(res):
     exit(1)
 
 def generate(rows, fname):
-    features = []
+    # features = []
     labels = []
-    fens = []
+    # fens = []
+
+    features = NpyAppendArray(fname + "features.npy")
 
     for lineId in range(rows):
         line = infile.readline().split(',')
@@ -34,17 +37,17 @@ def generate(rows, fname):
         # np.save(fname + "features/{}".format(lineId), feature)
         features.append(feature)
         labels.append(line[1])
-        fens.append(line[0])
+        # fens.append(line[0])
         
         if lineId % 1000 == 0:
             print(lineId)
 
     np.save(fname + "labels", np.array(labels))
-    labels = 0
-    np.save(fname + "fens", np.array(fens))
-    fens = 0
-    np.save(fname + "features", np.array(features))
-    features = 0
+    # labels = 0
+    # np.save(fname + "fens", np.array(fens))
+    # fens = 0
+    # np.save(fname + "features", np.array(features))
+    # features = 0
     # np.save(fname + "fens", np.array(fens))
 
 generate(7000000, "train_")
