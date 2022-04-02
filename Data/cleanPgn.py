@@ -47,13 +47,13 @@ for lineId, line in enumerate(infile):
         board.push_san(smove)
 
         fen = board.fen()
-        if id < 6:
-            key = hashlib.md5(bytes(fen, encoding='ascii')).digest()
-            if key in usedKeys:
-                continue
-            usedKeys.append(key)
+        # if id < 6:
+        #     key = hashlib.md5(bytes(fen, encoding='ascii')).digest()
+        #     if key in usedKeys:
+        #         continue
+        #     usedKeys.append(key)
 
-        if is_quiet_position(board) or random.randint(0, 10) == 0:
+        if random.randint(0, 10) == 0:
             outfile.write("{},{}\n".format(fen, str(eval)))
             numFeatures+=1
             if numFeatures % 1000 == 0:print(numFeatures)
