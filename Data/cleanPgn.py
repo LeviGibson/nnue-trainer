@@ -26,10 +26,13 @@ for lineId, line in enumerate(infile):
     line = line.replace('%eval ', '')
     line = line.split('  ')
 
+
     for id, obj in enumerate(line):
-        if ' ' in obj:
+        if 'clk' in obj:
+            line[id] = obj.split(' ')[0]
+        elif ' ' in obj:
             line[id] = obj.split(' ')[1]
-    
+
     moves = []
     evals = []
 
