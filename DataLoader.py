@@ -6,8 +6,8 @@ import random
 class DataLoader(keras.utils.Sequence):
 
     def __init__(self, batch_size, name, shuffle=True):
-        self.labels = np.load(name + "_labels.npy")
-        self.features = np.load(name + "_features.npy")
+        self.labels = np.load(name + "_labels.npy", mmap_mode='r')
+        self.features = np.load(name + "_features.npy", mmap_mode='r')
         # self.fens = np.load(name + "_fens.npy")
         self.batch_size = batch_size
         self.index_transformation = list(range(len(self.labels)))
