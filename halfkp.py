@@ -22,7 +22,10 @@ def getindex(p, sq, wk, bk):
     wk = flipPers[wk]
     bk = flipPers[bk]
 
-    return (wk + (768*p) + (64*sq)), (flipPers[bk] + (768*flip_piece_pers[p]) + (64*flipPers[sq]) + 49152)
+    i1 = (768*p) + (64*sq) + wk
+    i2 = (768*flip_piece_pers[p]) + (64*flipPers[sq]) + flipPers[bk] + 49152
+
+    return i1, i2
 
 def ksqs(pmap):
     wk, bk = 0,0
