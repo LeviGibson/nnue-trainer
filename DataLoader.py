@@ -23,29 +23,21 @@ class DataLoader(keras.utils.Sequence):
         return math.floor(len(self.labels) / self.batch_size)
 
     def __getitem__(self, idx):
-        x = [[], []]
+        x = (np.zeros((self.batch_size, 12*64*64), bool), 
+            np.zeros((self.batch_size, 12*64*64), bool))
+            
         y = np.zeros((self.batch_size,))
         for i in range(self.batch_size):
             index = self.index_transformation[i+(idx*self.batch_size)]
             
             ids = self.features[index]
-            tx = np.zeros((12*64*64*2,), bool)
             for id in ids:
                 if id != 0:
-                    tx[id] = True
-            tx = tx.reshape((2, -1))
+                    if id >= 49152:
+                        x[1][i][id - 49152] = True
+                    else:
+                        x[0][i][id] = True
             
-            x[0].append(tx[0])
-            x[1].append(tx[1])
             y[i] = self.labels[index]
 
-        x = (np.array(x[0]), np.array(x[1]))
         return x, y
-    
-    def getfen(self, idx):
-        x = []
-        for i in range(self.batch_size):
-            index = self.index_transformation[i+(idx*self.batch_size)]
-            x.append(self.fens[index])
-
-        return x
