@@ -29,8 +29,8 @@ class DataLoader(keras.utils.Sequence):
             
             ids = self.features[index]
             ids = ids[ids > 0]
-            h1 = ids[ids >= 384] - 384
-            h2 = ids[ids < 384]
+            h2 = ids[ids >= 384] - 384
+            h1 = ids[ids < 384]
 
             np.add.at(x[0][i], h1, h1.astype(bool))
             np.add.at(x[1][i], h2, h2.astype(bool))

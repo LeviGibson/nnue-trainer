@@ -22,6 +22,9 @@ def generate(rows, fname):
     features = NpyAppendArray(fname + "features.npy")
 
     for lineId in range(rows):
+        if lineId % 1000 == 0:
+            print(lineId)
+
         line = infile.readline().split(',')
         if line[1][0:1] == '#-':
             line[1] = 0
@@ -32,15 +35,12 @@ def generate(rows, fname):
             line[1] = 1/(1+pow(2, -line[1]))
 
         board = Board(line[0])
+        numCaptures = len(list(board.generate_pseudo_legal_captures()))
+        if numCaptures > 0: continue
+        
         feature = halfkp.get_halfkp_indeicies(board)
-
-        # np.save(fname + "features/{}".format(lineId), feature)
         features.append(np.array([feature]))
         labels.append(line[1])
-        # fens.append(line[0])
-        
-        if lineId % 1000 == 0:
-            print(lineId)
 
     np.save(fname + "labels", np.array(labels))
     # labels = 0

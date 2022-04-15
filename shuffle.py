@@ -10,7 +10,7 @@ def shuffle(fname):
 
     print(infile1.shape, infile2.shape)
 
-    trans = list(range(40000000))
+    trans = list(range(infile1.shape[0]))
     random.shuffle(trans)
 
     for tid, t in enumerate(trans):
