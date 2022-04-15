@@ -8,7 +8,9 @@ def shuffle(fname):
     features1 = NpyAppendArray(fname + "_features_shuffled.npy")
     features2 = NpyAppendArray(fname + "_labels_shuffled.npy")
 
-    trans = list(range(infile1.shape[0]))
+    print(infile1.shape, infile2.shape)
+
+    trans = list(range(40000000))
     random.shuffle(trans)
 
     for tid, t in enumerate(trans):

@@ -20,8 +20,8 @@ class DataLoader(keras.utils.Sequence):
         return math.floor(len(self.labels) / self.batch_size)
 
     def __getitem__(self, idx):
-        x = (np.zeros((self.batch_size, 12*64*64), bool), 
-            np.zeros((self.batch_size, 12*64*64), bool))
+        x = (np.zeros((self.batch_size, 6*64), bool), 
+            np.zeros((self.batch_size, 6*64), bool))
             
         y = np.zeros((self.batch_size,))
         for i in range(self.batch_size):
@@ -29,8 +29,8 @@ class DataLoader(keras.utils.Sequence):
             
             ids = self.features[index]
             ids = ids[ids > 0]
-            h1 = ids[ids >= 49152] - 49152
-            h2 = ids[ids < 49152]
+            h1 = ids[ids >= 384] - 384
+            h2 = ids[ids < 384]
 
             np.add.at(x[0][i], h1, h1.astype(bool))
             np.add.at(x[1][i], h2, h2.astype(bool))

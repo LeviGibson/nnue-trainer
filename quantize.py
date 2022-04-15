@@ -44,12 +44,12 @@ def propogate(a):
     global weights, biases
 
     setIndicies = a
-    a = np.zeros((12*64*64*2), bool)
+    a = np.zeros((768,), bool)
     for i in setIndicies:
         if i: a[i] = True
 
     a = a.reshape(2, -1)
-    a = np.array([np.matmul(weights[0].T,a[0]) + biases[0], np.matmul(weights[0].T,a[1]) + biases[0]]).reshape((512,))
+    a = np.array([np.matmul(weights[0].T,a[0]) + biases[0], np.matmul(weights[0].T,a[1]) + biases[0]]).reshape((128,))
     a[a < 0] = 0
     a[a > 127] = 127
     # print(a)
@@ -140,6 +140,6 @@ def write():
 
 
 quantize()
+# print(weights[0])
 propogate_all()
 write()
-# indicies = get_halfkp_indeicies(Board("k1n5/6pR/p1p1Rp2/2B3P1/2p5/P7/1PP5/1K6 w - - 3 42"))
