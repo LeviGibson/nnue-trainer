@@ -35,8 +35,6 @@ def generate(rows, fname):
             line[1] = 1/(1+pow(2, -line[1]))
 
         board = Board(line[0])
-        numCaptures = len(list(board.generate_pseudo_legal_captures()))
-        if numCaptures > 0: continue
         
         feature = halfkp.get_halfkp_indeicies(board)
         features.append(np.array([feature]))

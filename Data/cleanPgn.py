@@ -15,6 +15,8 @@ def is_quiet_position(board : chess.Board):
 
 numFeatures = 0
 for lineId, line in enumerate(infile):
+
+    print(numFeatures)
     
     line = line.replace('{', '')
     line = line.replace('}', '')
@@ -44,21 +46,18 @@ for lineId, line in enumerate(infile):
         except:
             moves.append(obj)
 
+    evals = evals[1:]
     board = chess.Board()
     id = 0
     for smove, eval in zip(moves, evals):
-        board.push_san(smove)
-
+        move = board.parse_san(smove)
         fen = board.fen()
-        # if id < 6:
-        #     key = hashlib.md5(bytes(fen, encoding='ascii')).digest()
-        #     if key in usedKeys:
-        #         continue
-        #     usedKeys.append(key)
 
-        if random.randint(0, 10) == 0:
+        if (not board.is_capture(move)) and len(list(board.generate_pseudo_legal_captures())) < 4 and (not board.gives_check(move)):
             outfile.write("{},{}\n".format(fen, str(eval)))
             numFeatures+=1
             if numFeatures % 1000 == 0:print(numFeatures)
+
+        board.push(move)
 
         id+=1
