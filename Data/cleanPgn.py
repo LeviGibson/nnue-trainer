@@ -3,7 +3,7 @@ import hashlib
 import random
 
 infile = open("analysed.pgn")
-outfile = open("chessData.csv", 'w')
+outfile = open("chessDataUnshuffled.csv", 'w')
 
 usedKeys = []
 
@@ -17,6 +17,8 @@ numFeatures = 0
 for lineId, line in enumerate(infile):
 
     print(numFeatures)
+    if numFeatures > 160000000:
+        break
     
     line = line.replace('{', '')
     line = line.replace('}', '')
@@ -61,3 +63,4 @@ for lineId, line in enumerate(infile):
         board.push(move)
 
         id+=1
+

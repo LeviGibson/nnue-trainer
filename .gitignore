@@ -9,6 +9,7 @@
 /network.nnue
 /data.pgn
 /Data/*.pgn
+/Data/chessDataUnshuffled.csv
 /Data/chessData.csv
 /data.pgn
 *.npy
