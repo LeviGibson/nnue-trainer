@@ -48,5 +48,5 @@ def generate(rows, fname):
     # features = 0
     # np.save(fname + "fens", np.array(fens))
 
-generate(150000000, "train_")
+generate(40000000, "train_")
 generate(20000, "val_")
