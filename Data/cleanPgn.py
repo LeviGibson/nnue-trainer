@@ -1,18 +1,10 @@
 import chess
 import hashlib
+import random
 import numpy as np
 
 infile = open("analysed.pgn")
 outfile = open("chessDataUnshuffled.csv", 'w')
-
-HASH_SIZE = 100000
-hash = np.zeros((HASH_SIZE,), bool)
-
-def is_quiet_position(board : chess.Board):
-    if board.is_check(): return 0
-    for move in list(board.legal_moves):
-        if board.is_capture(move): return 0
-    return 1
 
 numFeatures = 0
 for lineId, line in enumerate(infile):
@@ -57,10 +49,10 @@ for lineId, line in enumerate(infile):
 
     board = chess.Board()
     id = 0
-    padding = 0
+    padding = random.randint(0, 8)
+
     for smove, eval in zip(moves, evals):
         move = board.parse_san(smove)
-        fen = board.fen()
 
         if padding:
             padding-=1
@@ -68,15 +60,8 @@ for lineId, line in enumerate(infile):
             board.push(move)
             continue
 
-        if id < 6:
-            key = int(hashlib.sha256(fen.encode('utf-8')).hexdigest(), 16) % HASH_SIZE
-            if hash[key]:
-                board.push(move)
-                id+=1
-                continue
-            hash[key] = True
-
-        if (not board.is_capture(move)) and len(list(board.generate_pseudo_legal_captures())) < 4 and (not board.gives_check(move)):
+        if (not board.is_capture(move)) and (not board.gives_check(move)) and len(list(board.generate_pseudo_legal_captures())) < 4:
+            fen = board.fen()
             padding = 8
             outfile.write("{},{}\n".format(fen, str(eval)))
             numFeatures+=1
