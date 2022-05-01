@@ -17,7 +17,7 @@ mv *.pgn data.pgn
 /opt/pypy3.8/bin/pypy3 ./findAnalysedGames.py
 rm data.pgn
 /opt/pypy3.8/bin/pypy3 ./cleanPgn.py
-shuf chessDataUnshuffled.csv >> 1.csv
+shuf chessDataUnshuffled.csv >> 2.csv
 rm chessDataUnshuffled.csv
 rm chessData.csv
 cat *.csv >> chessData.csv
@@ -28,7 +28,7 @@ mv *.pgn data.pgn
 /opt/pypy3.8/bin/pypy3 ./findAnalysedGames.py
 rm data.pgn
 /opt/pypy3.8/bin/pypy3 ./cleanPgn.py
-shuf chessDataUnshuffled.csv >> 1.csv
+shuf chessDataUnshuffled.csv >> 3.csv
 rm chessDataUnshuffled.csv
 rm chessData.csv
 cat *.csv >> chessData.csv
@@ -39,7 +39,7 @@ mv *.pgn data.pgn
 /opt/pypy3.8/bin/pypy3 ./findAnalysedGames.py
 rm data.pgn
 /opt/pypy3.8/bin/pypy3 ./cleanPgn.py
-shuf chessDataUnshuffled.csv >> 1.csv
+shuf chessDataUnshuffled.csv >> 4.csv
 rm chessDataUnshuffled.csv
 rm chessData.csv
 cat *.csv >> chessData.csv
@@ -50,7 +50,7 @@ mv *.pgn data.pgn
 /opt/pypy3.8/bin/pypy3 ./findAnalysedGames.py
 rm data.pgn
 /opt/pypy3.8/bin/pypy3 ./cleanPgn.py
-shuf chessDataUnshuffled.csv >> 1.csv
+shuf chessDataUnshuffled.csv >> 5.csv
 rm chessDataUnshuffled.csv
 rm chessData.csv
 cat *.csv >> chessData.csv

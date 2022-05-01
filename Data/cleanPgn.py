@@ -1,5 +1,4 @@
 import chess
-import hashlib
 import random
 import numpy as np
 
@@ -12,8 +11,6 @@ for lineId, line in enumerate(infile):
     try:
         if lineId % 1000 == 0:
             print(numFeatures)
-        # if numFeatures > 41000000:
-        #     break
         
         line = line.replace('{', '')
         line = line.replace('}', '')
