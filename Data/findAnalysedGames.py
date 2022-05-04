@@ -9,7 +9,7 @@ def run():
         if line[0] != "[":
             if "%eval" in line:
                 gamesFound+=1
-                outfile.write(pgn)
+                outfile.write(line)
 
 if __name__ == '__main__':
     run()
