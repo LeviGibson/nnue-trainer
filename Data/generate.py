@@ -4,7 +4,7 @@ import subprocess
 import findAnalysedGames
 import cleanPgn
 
-filesMade = 2
+filesMade = 0
 
 urls = [
     "https://database.lichess.org/standard/lichess_db_standard_rated_2022-04.pgn.bz2",
@@ -37,8 +37,8 @@ urls = [
     "https://database.lichess.org/standard/lichess_db_standard_rated_2020-01.pgn.bz2",]
 
 for urlId, url in enumerate(urls):
-    # filename = wget.download(url)
-    # os.rename(filename, "data.pgn.bz2")
+    filename = wget.download(url)
+    os.rename(filename, "data.pgn.bz2")
 
     with subprocess.Popen(["pbzip2 -d ./data.pgn.bz2 -v -k"], shell=True) as process:
         process.wait()
